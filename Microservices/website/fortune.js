@@ -11,32 +11,36 @@ document.addEventListener("DOMContentLoaded", () => {
         function validateEmail(email) {
             return String(email)
                 .toLowerCase()
-                .match(
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-                );
+                .match(/^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/);
         }
+        // VARS
+        let subscribe_txt = document.getElementById("confirm-subscribe");
         const emailInput = document.getElementById("email-input").value;
         if (!validateEmail(emailInput)) {
-            document.getElementById("confirm-subscribe").textContent=`Email "${emailInput}" is invalid!`;
+            subscribe_txt.textContent=`Email "${emailInput}" is invalid!`;
             return;
         }else{
-            document.getElementById("confirm-subscribe").textContent="";
+            subscribe_txt.textContent="";
         }
-        const dataToAdd = { "message": emailInput };
-        fetch('https://api.ivandeveric.site/TODO_ENDPOINT', {
-            method: 'POST',
+        const dataToAdd = { "email": emailInput };
+        fetch('https://api.ivandeveric.site/fortune/subscribe', {
+            method: 'PUT',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(dataToAdd)
         })
         .then(response => response.json())
         .then(data => {
-            document.getElementById("confirm-subscribe").textContent="Success! Please check your email and confirm.";
+            subscribe_txt.textContent=data.message;
+            let email_server = document.createElement("a");
+            email_server.href = `https://${emailInput.split("@")[1]}`;
+            email_server.innerHTML = "Click this link to go to your email.";
+            subscribe_txt.parentNode.appendChild(email_server);
         })
         .catch(error => {
-            document.getElementById("confirm-subscribe").textContent="Failure!";
-            console.error('Error updating data:', error);
+            subscribe_txt.textContent=error.message;
+            console.error('Error subscribing:', error);
         });
     });
 });
