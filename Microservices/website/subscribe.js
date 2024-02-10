@@ -1,4 +1,4 @@
-// TODO: Implement subscription deactivation.
+// TODO: Implement subscription deactivation and merge to main
 document.addEventListener("DOMContentLoaded", () => {
     let params = new URLSearchParams(document.location.search);
     let link = encodeURIComponent(params.get("activate"))
