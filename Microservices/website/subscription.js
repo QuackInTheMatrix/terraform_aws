@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     let params = new URLSearchParams(document.location.search);
     let link = encodeURIComponent(params.get("activate"))
-    if (link){
+    if (link !== "null"){
         fetch(`https://api.ivandeveric.site/fortune/subscribe`, {
             method: 'POST',
             headers: {
@@ -25,13 +25,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }else {
         link = encodeURIComponent(params.get("deactivate"))
-        if(link){
+        if(link !== "null"){
             fetch(`https://api.ivandeveric.site/fortune/unsubscribe`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({"activate":`${link}`})
+                body: JSON.stringify({"deactivate":`${link}`})
             })
             .then(response => response.json())
             .then(data => {
