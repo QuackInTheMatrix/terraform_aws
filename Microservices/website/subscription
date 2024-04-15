@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <script src="subscribe.js"></script>
+    <script src="subscription.js"></script>
   </head>
   <body>
     <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
       <div class="w3-display-middle">
-        <h1 class="w3-jumbo w3-animate-top" id="subscribe-status">Processing your subscription...</h1>
+        <h1 class="w3-jumbo w3-animate-top" id="subscription-status">Processing your request...</h1>
         <br>
         <div class="w3-display-middle loader" id="loader"></div>
         <hr class="w3-border-grey" style="margin:auto;width:50%" id="seperator">
