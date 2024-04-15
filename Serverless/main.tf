@@ -26,14 +26,9 @@ data "aws_iam_role" "lambda_role" {
   name = "WebAPILambdaRole"
 }
 
-data "aws_lambda_layer_version" "libraries" {
-  layer_name = "WebAPILayer"
-}
-
 resource "aws_lambda_function" "webapi" {
   function_name = "APILambda"
   role          = data.aws_iam_role.lambda_role.arn
-  layers        = [data.aws_lambda_layer_version.libraries.arn]
   runtime       = "python3.11"
   s3_bucket     = data.aws_s3_object.webapi.bucket
   s3_key        = data.aws_s3_object.webapi.key
